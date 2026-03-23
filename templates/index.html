@@ -4,9 +4,72 @@
     <title>Simple App</title>
 </head>
 <body>
-    <!-- データを表示するための場所 -->
-    <div id="display"></div>
 
+    <!-- 文字列とボタンを横並び（同じ高さ）にするための設定 -->
+    <div style="display: flex; align-items: center;">
+        <!-- データを表示するための場所 -->
+        <div id="display"></div>
+        <button id="toggleBtn" style="margin-left: 10px;">Stop</button>
+    </div>
+
+    <script>
+        // ボタンの表示を切り替える処理
+        const btn = document.getElementById('toggleBtn');
+        let timerId = null;
+
+
+        // btn.addEventListener('click', () => {
+        //    if (btn.innerText === 'Start') {
+        //        btn.innerText = 'Stop';
+        //    } else {
+        //        btn.innerText = 'Start';
+        //    }
+        //});
+
+
+        // データを取得して表示を更新する関数
+        function updateTime() {
+            fetch('/api/data')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('display').innerText = data.message;
+                });
+        }
+
+        function startTimer() {
+            if (!timerId) {
+                timerId = setInterval(updateTime, 1000);
+            }
+        }
+
+        function stopTimer() {
+            clearInterval(timerId);
+            timerId = null;
+        }
+
+        // ボタンクリック時のイベントリスナー
+        btn.addEventListener('click', () => {
+            if (btn.innerText === 'Stop') {
+                // 2. 「Stop（止める）」ボタンが押されたら、停止して表示を「Start」に変える
+                stopTimer();
+                btn.innerText = 'Start';
+            } else {
+                // 3. 「Start（始める）」ボタンが押されたら、再開して表示を「Stop」に変える
+                startTimer();
+                btn.innerText = 'Stop';
+            }
+        });
+
+
+        // 1. ページ読み込み時に一度実行（最初の表示用）
+        updateTime();
+        startTimer(); // 4. 最初からタイマーを動かしておく
+
+        // 2. 1秒（1000ミリ秒）ごとにupdateTime関数を実行し続けるタイマー
+        //setInterval(updateTime, 1000);
+    </script>
+
+<!--
     <script>
         // BEのAPIからデータを取得する
         fetch('/api/data')
@@ -16,6 +79,8 @@
                 document.getElementById('display').innerText = data.message;
             });
     </script>
+-->
+
 </body>
 </html>
 
