@@ -4,13 +4,13 @@ from datetime import datetime, timedelta, timezone # 現在時刻を取得する
 app = Flask(__name__)
 
 # 1. 最初にページを表示するためのルート
-@app.route('/')
+@app.route('/') 
 def index():
     # templatesフォルダ内のindex.htmlを探してブラウザに返す
     return render_template('index.html')
 
 # 2. フロントエンド（JS）から呼ばれる、データを送るためのルート
-@app.route('/api/data')
+@app.route('/api/data')    # /api/data というURLにアクセスがあった時に、下の関数を実行するように設定
 def get_data():
 
     # 0. 世界標準時の場合

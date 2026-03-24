@@ -17,16 +17,6 @@
         const btn = document.getElementById('toggleBtn');
         let timerId = null;     // タイマーを管理するための変数
 
-        /*
-        btn.addEventListener('click', () => {
-            if (btn.innerText === 'Start') {
-                btn.innerText = 'Stop';
-            } else {
-                btn.innerText = 'Start';
-            }
-        });
-        */
-
         // データを取得して表示を更新する関数
         function updateTime() {
             fetch('/api/data')      // 指定したURL（BEのプログラム）にデータをくださいのリクエスト送信
@@ -63,6 +53,16 @@
             }
         });
 
+        
+        /*
+        btn.addEventListener('click', () => {
+            if (btn.innerText === 'Start') {
+                btn.innerText = 'Stop';
+            } else {
+                btn.innerText = 'Start';
+            }
+        });
+        */
 
         // 1. ページ読み込み時に一度実行（最初の表示用）
         updateTime();
