@@ -22,12 +22,15 @@ app = FastAPI()
 def index():
     # templatesフォルダ内のindex.htmlを探してブラウザに返す
     # Flask     return render_template('index.html')
+
     # FastAPI
+    # Flaskの render_template はHTMLの中身を書き換える（レンダリングする）機能があるが、
+    # FastAPIで単純なHTMLファイルを送る場合は FileResponse を使うのが手軽
     return FileResponse('templates/index.html')
 
 # 2. フロントエンド（JS）から呼ばれる、データを送るためのルート
 # Flask     @app.route('/api/data')    # /api/data というURLにアクセスがあった時に、下の関数を実行するように設定
-# Fast API
+# FastAPI　FastAPIでは、GETメソッドであることを明示的に書くのが一般的
 @app.get("/api/data")
 
 def get_data():
@@ -48,7 +51,7 @@ def get_data():
 
     # 取得した時刻の文字列をJSON形式で返却
     # Flask     return jsonify({"message": now_time})
-    # Fast API
+    # FastAPI  FastAPIでは辞書型を返すと自動的にJSONに変換されます
     return {"message": now_time}
 
     """　単なる文字列データの送信
@@ -63,4 +66,7 @@ if __name__ == '__main__':
     # サーバを起動
     # Flask     app.run(debug=True)
     # FastAPI
+    # FastAPI単体ではサーバー機能を持たないため、uvicorn という高速なサーバーソフトを使って起動。
+    # ポート番号を 5000(defaultは8000) に設定することで、Flaskの時と同じURLでアクセスできるようにしています。
     uvicorn.run(app, host="0.0.0.0", port=5000)
+    
