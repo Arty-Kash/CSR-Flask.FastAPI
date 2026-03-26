@@ -86,12 +86,12 @@ def get_data():
     # 取得した時刻の文字列をJSON形式で返却
     # Flask
     # return jsonify({"message": now_time})
-    
+
     # FastAPI  FastAPIでは辞書型を返すと自動的にJSONに変換されます
     return {"message": now_time}
 """
 
-"""
+""" AI Studio 「x CSR → Build」で作成したコード
     単なる文字列データの送信
     data = {
         "message": "こんにちは！これはPythonバックエンドから送られたメッセージです。",
@@ -102,7 +102,9 @@ def get_data():
 
 if __name__ == '__main__':
     # サーバを起動
-    # Flask     app.run(debug=True)
+    # Flask
+    # app.run(debug=True)
+
     # FastAPI
     # FastAPI単体ではサーバー機能を持たないため、uvicorn という高速なサーバーソフトを使って起動。
     # ポート番号を 5000(defaultは8000) に設定することで、Flaskの時と同じURLでアクセスできるようにしています。
